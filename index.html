@@ -1,3 +1,7 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>Tear-off Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +35,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #tally{font-variant-numeric:tabular-nums;color:#a9a9b0;font-size:13px;min-width:92px;text-align:center}
 
 #box{position:relative;flex:none}
-#phone{position:absolute;left:0;top:0;width:440px;height:956px;transform-origin:0 0;background:#000;border-radius:58px;overflow:hidden;
+#phone{position:absolute;left:0;top:0;width:440px;height:var(--H,956px);transform-origin:0 0;background:#000;border-radius:58px;overflow:hidden;
   box-shadow:0 0 0 1px rgba(255,255,255,.09),0 40px 90px rgba(0,0,0,.65);font-family:var(--sans);-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
 .island{position:absolute;left:157px;top:11px;width:126px;height:37px;border-radius:20px;background:#000;z-index:60}
 
@@ -159,13 +163,13 @@ svg.ic{display:block;filter:drop-shadow(0 .5px 0 rgba(255,255,255,.35)) drop-sha
 #phone.kb #bars{opacity:0;transform:translateY(24px);pointer-events:none}
 #bars{transition:transform .5s cubic-bezier(.32,.72,0,1),opacity .25s}
 
-#ktool{position:absolute;left:10px;top:552px;width:420px;height:46px;border-radius:30px;z-index:22;overflow:hidden;transform:translateY(70px);opacity:0;pointer-events:none;transition:transform .55s cubic-bezier(.32,.72,0,1),opacity .3s}
+#ktool{position:absolute;left:10px;top:calc(var(--H,956px) - 404px);width:420px;height:46px;border-radius:30px;z-index:22;overflow:hidden;transform:translateY(70px);opacity:0;pointer-events:none;transition:transform .55s cubic-bezier(.32,.72,0,1),opacity .3s}
 #phone.kb #ktool{transform:none;opacity:1;pointer-events:auto}
 #ktool button{position:absolute;top:0;height:46px;width:56px;margin-left:-28px;display:grid;place-items:center}
 #ktool button.on::before{content:"";position:absolute;inset:5px 6px;border-radius:20px;background:rgba(255,255,255,.14)}
 .Aa{font-size:25px;font-weight:400;letter-spacing:-.5px;font-family:var(--sans)}
 
-.kbd{position:absolute;left:0;top:610px;width:440px;height:346px;background:var(--kb);border-radius:40px;z-index:21;transform:translateY(112%);transition:transform .55s cubic-bezier(.32,.72,0,1);box-shadow:inset 0 .6px 0 rgba(255,255,255,.1)}
+.kbd{position:absolute;left:0;top:calc(var(--H,956px) - 346px);width:440px;height:346px;background:var(--kb);border-radius:40px;z-index:21;transform:translateY(112%);transition:transform .55s cubic-bezier(.32,.72,0,1);box-shadow:inset 0 .6px 0 rgba(255,255,255,.1)}
 #phone.kb .kbd{transform:none}
 .kbd .sugg{position:absolute;top:12px;height:34px;width:1px;background:rgba(255,255,255,.12)}
 .kbd .lang{position:absolute;left:407px;top:13px;width:18px;height:22px;border-radius:5px;background:#4a4a4c;color:#d8d8da;font-size:13px;display:grid;place-items:center}
@@ -207,7 +211,7 @@ svg.ic{display:block;filter:drop-shadow(0 .5px 0 rgba(255,255,255,.35)) drop-sha
 #nb-pill.bump{animation:bump .5s cubic-bezier(.3,1.4,.5,1)}
 @keyframes bump{0%{scale:.86}55%{scale:1.08}100%{scale:1}}
 #phone.busy #note{pointer-events:none}
-#dust,#dustbg{position:absolute;left:0;top:0;width:440px;height:956px;pointer-events:none}
+#dust,#dustbg{position:absolute;left:0;top:0;width:440px;height:var(--H,956px);pointer-events:none}
 #dustbg{z-index:9;opacity:0}
 #dust{z-index:11}
 #dustpad{position:absolute;left:0;right:0;top:110px;bottom:0;z-index:11;display:none;touch-action:none}
@@ -220,6 +224,15 @@ svg.ic{display:block;filter:drop-shadow(0 .5px 0 rgba(255,255,255,.35)) drop-sha
 
 
 @media (prefers-reduced-motion:reduce){.screen,.kbd,#ktool{transition-duration:.01s}.caret{animation:none}}
+html.mob,html.mob body{background:#000;overflow:hidden;height:100%}
+html.mob body{padding:0;display:block}
+html.mob #box{position:fixed;left:0;top:0;overflow:hidden}
+html.mob #phone{border-radius:0;box-shadow:none}
+html.mob .island,html.mob #status{display:none}
+#ghost{position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:.01;font-size:16px;border:0;padding:0;margin:0;resize:none;background:transparent;color:transparent;caret-color:transparent;z-index:-1;outline:0}
+html.native .kbd{display:none}
+html.native #ktool{top:calc(var(--H,956px) - 58px)}
+html.native #phone.kb #doc{padding-bottom:100px}
 </style>
 
 <div class="ctrl" hidden style="display:none">
@@ -228,6 +241,7 @@ svg.ic{display:block;filter:drop-shadow(0 .5px 0 rgba(255,255,255,.35)) drop-sha
   <button class="chip" id="snd" type="button" aria-pressed="true">Sound on</button>
   <span id="tally" aria-live="polite">0 torn off</span>
 </div>
+<textarea id="ghost" rows="1" autocapitalize="sentences" autocomplete="off" autocorrect="on" spellcheck="true" aria-hidden="true" tabindex="-1"></textarea>
 <div id="box">
 <div id="phone">
   <div class="island"></div>
@@ -311,13 +325,28 @@ const EDGE_N=14;
 const mk=(type,text='')=>({type,text,broken:0,edge:Array.from({length:EDGE_N},()=>.6+Math.random()*5)});
 
 /* ---------- fit ---------- */
+const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+let native=false;
 function fit(){
-  const availH=innerHeight-(innerWidth<700?56:48);
-  scale=Math.max(.3,Math.min(availH/956,(innerWidth-32)/440,1.3));
-  box.style.width=440*scale+'px';box.style.height=956*scale+'px';
+  const mob=innerWidth<700;
+  native=mob&&IOS;
+  document.documentElement.classList.toggle('mob',mob);
+  document.documentElement.classList.toggle('native',native);
+  if(mob){
+    scale=innerWidth/440;
+    const vv=window.visualViewport,vh=native&&vv?vv.height:innerHeight,off=native&&vv?vv.offsetTop:0;
+    const H=Math.max(native?300:700,Math.round(vh/scale));
+    phone.style.setProperty('--H',H+'px');
+    box.style.width=innerWidth+'px';box.style.height=vh+'px';box.style.transform=off?'translateY('+off+'px)':'';
+  }else{
+    phone.style.removeProperty('--H');
+    const availH=innerHeight-48;
+    scale=Math.max(.3,Math.min(availH/956,(innerWidth-32)/440,1.3));
+    box.style.width=440*scale+'px';box.style.height=956*scale+'px';
+  }
   phone.style.transform='scale('+scale+')';
 }
-addEventListener('resize',fit);fit();
+addEventListener('resize',fit);if(window.visualViewport){visualViewport.addEventListener('resize',fit);visualViewport.addEventListener('scroll',fit)}fit();
 
 /* ---------- audio: procedural paper tear ---------- */
 /* Fibres snapping: a bed of hiss plus a stream of very short noise grains. Grain density follows how fast the tear is moving. */
@@ -646,10 +675,10 @@ function restore(i){
   ln.type='check';ln.broken=0;ln.restore=true;torn=Math.max(0,torn-1);updateTally();
   renderDoc();
 }
-function enterEdit(i){cur=i;shiftOn=autoCap();if(!kb){kb=true;phone.classList.add('kb')}renderDoc()}
+function enterEdit(i){cur=i;shiftOn=autoCap();if(!kb){kb=true;phone.classList.add('kb')}if(native)ghostFocus();renderDoc()}
 function hideKb(){
   if(!kb)return;
-  kb=false;phone.classList.remove('kb');
+  kb=false;phone.classList.remove('kb');ghostBlur();
   doc.lines=doc.lines.filter((l,i)=>i===0||l.type==='stub'||l.text!=='');
   if(cur>=doc.lines.length)cur=doc.lines.length-1;
   renderDoc();
@@ -684,11 +713,39 @@ function toggleCheck(){
 }
 document.querySelectorAll('[data-act="check"]').forEach(b=>b.addEventListener('click',()=>{if(screen==='note'&&!doc.deleted){if(!kb)enterEdit(doc.lines.length-1);toggleCheck()}}));
 addEventListener('keydown',e=>{
-  if(!kb||screen!=='note'||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(native||!kb||screen!=='note'||e.metaKey||e.ctrlKey||e.altKey)return;
   if(e.key==='Enter'){e.preventDefault();enter()}
   else if(e.key==='Backspace'){e.preventDefault();backspace()}
   else if(e.key.length===1){e.preventDefault();typeChar(e.key)}
 });
+
+/* ---------- native keyboard (iOS): a hidden textarea mirrors the current line ---------- */
+const GH=$('#ghost'),SEN='\u200b';let ghBlurT=0;
+function ghostFocus(){clearTimeout(ghBlurT);try{GH.focus({preventScroll:true})}catch(e){GH.focus()}ghostSync(true)}
+function ghostBlur(){clearTimeout(ghBlurT);GH.blur()}
+function ghostSync(force){
+  const l=doc&&doc.lines[cur];const want=SEN+(l&&l.type!=='stub'?l.text:'');
+  if(force||GH.value!==want){GH.value=want;try{GH.setSelectionRange(want.length,want.length)}catch(e){}}
+}
+GH.addEventListener('input',()=>{
+  if(!native||!kb||screen!=='note'||!doc)return;
+  let v=GH.value;const l=doc.lines[cur];
+  if(!l||l.type==='stub'){ghostSync(true);return}
+  if(!v.startsWith(SEN)){ /* backspace on an empty line */
+    if(l.text==='')backspace();else l.text=v.replace(/\u200b/g,'');
+    shiftOn=autoCap();renderDoc();ghostSync(true);return;
+  }
+  v=v.slice(1);
+  const nl=v.indexOf('\n');
+  if(nl>=0){l.text=v.slice(0,nl);const rest=v.slice(nl+1).replace(/\n/g,'');enter();const l2=doc.lines[cur];if(l2&&rest)l2.text=rest;shiftOn=autoCap();renderDoc();ghostSync(true);return}
+  if(v.length===l.text.length+1&&shiftOn&&/[a-z]$/.test(v))v=v.slice(0,-1)+v.slice(-1).toUpperCase();
+  l.text=v;shiftOn=autoCap();renderDoc();
+});
+GH.addEventListener('blur',()=>{if(!native||!kb)return;ghBlurT=setTimeout(()=>{if(kb&&document.activeElement!==GH)hideKb()},120)});
+const _rd2=renderDoc;renderDoc=function(){_rd2();if(native&&kb)ghostSync()};
+/* keep formatting-toolbar taps from stealing focus (and dropping the keyboard) */
+$('#ktool').addEventListener('pointerdown',e=>{if(native)e.preventDefault()});
+$('#nb-done').addEventListener('pointerdown',e=>{if(native)e.preventDefault()});
 
 /* ---------- keyboard ---------- */
 const KEYS=$('#keys');
@@ -766,9 +823,9 @@ function openNote(n,edit){
   renderDoc();
   if(edit)setTimeout(()=>{if(screen==='note'&&doc===n)enterEdit(0)},120);
 }
-function closeNote(){
+function closeNote(keepFocus){
   if(screen!=='note')return;
-  if(kb){kb=false;phone.classList.remove('kb');doc.lines=doc.lines.filter((l,i)=>i===0||l.type==='stub'||l.text!=='')}
+  if(kb){kb=false;phone.classList.remove('kb');if(keepFocus!==true)ghostBlur();doc.lines=doc.lines.filter((l,i)=>i===0||l.type==='stub'||l.text!=='')}
   const empty=doc.lines.every(l=>l.type==='stub'?false:l.text==='');
   if(empty)notes=notes.filter(n=>n!==doc);
   else if(!doc.deleted&&!notes.includes(doc))notes.push(doc);
@@ -778,11 +835,12 @@ function closeNote(){
   if(doc&&doc.deleted)setTimeout(()=>{if(screen==='list'){dustReset();DOC.style.visibility=''}},700);
 }
 function newNote(){
+  if(native)ghostFocus();
   const n={lines:[mk('title')]};
   openNote(n,true);
 }
 $('#compose').addEventListener('click',newNote);
-$('#compose2').addEventListener('click',()=>{closeNote();setTimeout(newNote,420)});
+$('#compose2').addEventListener('click',()=>{if(native)ghostFocus();closeNote(true);setTimeout(newNote,420)});
 $('#nb-back').addEventListener('click',closeNote);
 $('#nb-done').addEventListener('click',hideKb);
 
@@ -809,7 +867,7 @@ menu.querySelectorAll('.mi,.mt').forEach(b=>b.addEventListener('click',()=>{if(b
 /* ---------- delete: the note turns to dust ---------- */
 /* The note is redrawn to a canvas, every lit pixel becomes a grain, grains drain downward in streaks and settle into a powder pile. The note is already deleted; blowing is optional. */
 const DUST=$('#dust'),DBG=$('#dustbg'),PAD=$('#dustpad'),HINT=$('#dusthint');
-const DW=440,DH=956;
+const DW=440;let DH=956;
 let dst=null,mic=null,micTimer=0;
 function stopMic(){
   clearInterval(micTimer);micTimer=0;
@@ -906,6 +964,7 @@ function dustFrame(now){
 }
 function dissolveDelete(){
   const n=doc;closeMenu(false);
+  DH=Math.round(phone.offsetHeight);DUST.height=DH;DBG.height=DH;
   if(n.lines.every(l=>l.type!=='stub'&&!String(l.text||'').trim())){n.deleted=true;notes=notes.filter(x=>x!==n);closeNote();return}
   if(kb){kb=false;phone.classList.remove('kb');renderDoc()}
   sndInit();dustReset();
